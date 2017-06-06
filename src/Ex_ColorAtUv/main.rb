@@ -184,14 +184,14 @@ module Example::ColorAtUv
       u = uvq.x / uvq.z
       v = uvq.y / uvq.z
       # TODO: Uncomment once image_ref is hooked up.
-      #image_rep = material.texture.image_ref
-      #return image_rep.color_at_uv(u, v)
+      image_rep = material.texture.image_rep
+      # return image_rep.color_at_uv(u, v)
       # Alternative: As Array
       #return image_rep.color_at_uv([u, v])
       # Alternative: As Point3d (Often used elsewhere in the API)
       #return image_rep.color_at_uv(Geom::Point3d(u, v))
       {
-        color: get_material_color(material), # TODO: Use texture data.
+        color: image_rep.color_at_uv(u, v),
         uv: [u, v],
         global_point: global_point,
         local_point: local_point,
