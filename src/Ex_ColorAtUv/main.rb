@@ -87,7 +87,7 @@ module Example::ColorAtUv
           :bold => true,
           :align => TextAlignLeft,
         }
-        text = "UV: %.4f, %.4f" % uv.to_a[0, 2]
+        text = "UV: %.4f, %.4f" % uv.to_a.first(2)
         view.draw_text([tx, ty, 0], text, options)
       end
     end
@@ -159,7 +159,7 @@ module Example::ColorAtUv
       return nil unless face.is_a?(Sketchup::Face)
       # Determine if we picked the front or backside.
       front = face.normal.dot(ray[1]) < 0.0
-      material = (front) ? face.material : face.back_material
+      material = front ? face.material : face.back_material
       return nil if material.nil?
       # We simply return the material color when the material have no texture.
       return { color: get_material_color(material) } if material.texture.nil?
@@ -179,17 +179,11 @@ module Example::ColorAtUv
       local_point = global_point.transform(to_local)
       # Fetch a UVHelper for the front and backside.
       uvh = face.get_UVHelper(true, true)
-      uvq = (front) ? uvh.get_front_UVQ(local_point) : uvh.get_back_UVQ(local_point)
+      uvq = front ? uvh.get_front_UVQ(local_point) : uvh.get_back_UVQ(local_point)
       # Need to convert from UVQ to UV.
       u = uvq.x / uvq.z
       v = uvq.y / uvq.z
-      # TODO: Uncomment once image_ref is hooked up.
       image_rep = material.texture.image_rep
-      # return image_rep.color_at_uv(u, v)
-      # Alternative: As Array
-      #return image_rep.color_at_uv([u, v])
-      # Alternative: As Point3d (Often used elsewhere in the API)
-      #return image_rep.color_at_uv(Geom::Point3d(u, v))
       {
         color: image_rep.color_at_uv(u, v),
         uv: [u, v],
