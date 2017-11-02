@@ -5,8 +5,6 @@ module Example::ColorAtUv
   unless file_loaded?(__FILE__)
     menu = UI.menu('Plugins').add_submenu(EXTENSION[:name])
     menu.add_item('Pick Color') { self.pick_color_tool }
-    menu.add_separator
-    menu.add_item('Help...') { self.open_help }
     file_loaded(__FILE__)
   end
 
@@ -193,10 +191,5 @@ module Example::ColorAtUv
     end
 
   end # class
-
-
-  def self.open_help
-    UI.openURL(EXTENSION[:url])
-  end
 
 end # module
