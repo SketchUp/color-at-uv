@@ -165,7 +165,6 @@ module Example::ColorAtUv
       # coordinate picked.
       # First we must translate the globally picked point to the local space for
       # the face.
-      # TODO: Double check the order of transformations multiplied is correct.
       to_global = instance_path.inject(IDENTITY) { |tr, instance|
         # The inject method will yield the result of the previous iteration in
         # the first parameter of the block; here "tr".
