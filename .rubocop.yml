@@ -1,0 +1,21 @@
+require: rubocop-sketchup
+
+AllCops:
+  DisabledByDefault: true
+  Exclude:
+  - skippy/**/*
+  SketchUp:
+    SourcePath: src
+    TargetSketchUpVersion: 2018
+
+SketchupDeprecations:
+  Enabled: true
+
+SketchupPerformance:
+  Enabled: true
+
+SketchupRequirements:
+  Enabled: true
+
+SketchupSuggestions:
+  Enabled: true
